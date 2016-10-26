@@ -1,0 +1,10 @@
+﻿    @{
+
+        if (Context.Request.Path.StartsWith("/Decks", StringComparison.OrdinalIgnoreCase))
+        {
+            Layout = "~/Views/Decks/Layout/_FlashcardLayout.cshtml";
+        }
+        else {
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+    }

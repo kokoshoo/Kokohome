@@ -1,0 +1,19 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Active = ViewContext.RouteData.Values["Action"].ToString();
+}
+
+    <ul class="nav nav-pills nav-justified">
+        <li role="presentation" class="@(ViewBag.Active == "Index" ? "active" : "")">@Html.ActionLink("Flashcards", "Index", "Decks")</li>
+        <li role="presentation" class="@(ViewBag.Active == "MyDecks" ? "active" : "")">@Html.ActionLink("My Decks", "MyDecks", "Decks")</li>
+    </ul>
+
+
+    <div>
+        @RenderBody()
+    </div>
+@RenderSection("scripts", required: false)
+
+
+
+

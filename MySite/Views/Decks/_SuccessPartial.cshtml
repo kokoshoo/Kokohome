@@ -1,0 +1,9 @@
+﻿@if (TempData["FlashcardUpdateSuccess"] != null)
+{
+    <p id="FlashcardsUpdatedAlert" class="alert alert-success fade">Saved!</p>
+}
+
+@if (TempData["FlashcardUpdateFail"] != null)
+{
+    <p id="FlashcardsUpdatedAlert" class="alert alert-fail fade">Error!</p>
+}

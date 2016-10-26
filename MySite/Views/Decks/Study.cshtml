@@ -1,0 +1,110 @@
+﻿@model Decks.Deck
+@{
+    ViewBag.Title = "Study";
+}
+
+
+
+<h2>Study</h2>
+<div id="flashcard"class="flip-container">
+    <div class="flipper">
+        <div class="panel panel-primary text-center front">
+            <div class="panel-heading">Front</div>
+            <div class="panel-body flashcard">
+                <h3 id="flashcard-front" class="flashcard-text">Front Content</h3>
+            </div>
+        </div>
+
+        <div class="panel panel-primary text-center back">
+            <div class="panel-heading">Back</div>
+            <div class="panel-body flashcard">
+                <h3 id="flashcard-back" class="flashcard-text">Back Content</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row margin-top">
+    <div class="btn-group col-xs-10 col-xs-offset-1" role="group" aria-label="...">
+        <button id="fail-button" class="btn btn-default wide">X</button>
+        <button id="success-button" class="btn btn-default wide">O</button>
+    </div>
+</div>
+
+<script>
+    //Declare globals
+    var front = document.getElementById('flashcard-front'),
+        back = document.getElementById('flashcard-back'),
+        successButton = document.getElementById('success-button'),
+        failButton = document.getElementById('fail-button');
+
+    //Flip functionality for the flashcard
+    document.getElementById('flashcard').onclick = function () {
+
+        var className = ' ' + flashcard.className + ' ';
+
+        this.className = ~className.indexOf(' flip ') ?
+                             className.replace(' flip ', ' ') :
+                             this.className + ' flip';
+    }
+
+
+    //Add the deck to js from c#
+    var CardList = [];
+    @foreach(var card in Model.Flashcards)
+    {
+         <text>CardList.push({Front: '@card.CardFront.ToString()', Back: '@card.CardBack.ToString()'});</text>
+    }
+
+    //Change the front and back to content of CardList[0]
+
+    var ChangeCard = function () {
+        if (CardList.length > 0) {
+            var currentCard = CardList[0]; //Get First Element
+            front.innerText = currentCard.Front;
+            back.innerText = currentCard.Back;
+        }
+        else {
+            front.innerText = "No more cards!";
+            back.innerText = "Nothing else to see here!";
+        }
+    };
+
+    var RemoveCard = function() {
+        return CardList.splice(0, 1);
+    }
+
+    var CardToBack = function () {
+        if (CardList.length > 0) {
+            var c = RemoveCard();
+            CardList.push(c[0]);
+        }
+    }
+
+    function Shuffle(a) {
+        var j, x, i;
+        for (i = a.length; i; i--) {
+            j = Math.floor(Math.random() * i);
+            x = a[j];
+            a[j] = a[i-1];
+            a[i-1] = x;
+        }
+    }
+
+
+    Shuffle(CardList);
+    ChangeCard();
+
+    //Bind methods to buttons
+    successButton.onclick = function () {
+        RemoveCard();
+        ChangeCard();
+    }
+
+    failButton.onclick = function () {
+        CardToBack();
+        ChangeCard();
+    }
+
+
+</script>

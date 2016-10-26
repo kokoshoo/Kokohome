@@ -1,0 +1,25 @@
+﻿@model Decks.Flashcard
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.DeckId)
+    <tr>
+        <td>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CardFront, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CardFront, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CardBack, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CardBack, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "DeleteFlashcard", new { id = Model.Id })
+        </td>
+    </tr>
